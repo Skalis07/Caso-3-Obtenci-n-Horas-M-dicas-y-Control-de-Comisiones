@@ -161,3 +161,21 @@ Servicio que calcula comisiones de las boletas.<br/>
 Monto boleta, uuid médico.<br/>
 **Salida:**<br/>
 Monto comisión que se asocia al médico.<br/>
+
+## **Arquitectura Cloud**
+Se ha optado por una arquitectura serverless, esta será descrita junto a cada una de sus capas y componentes a continuación.
+![](https://github.com/Halan07/Caso-3-Obtenci-n-Horas-M-dicas-y-Control-de-Comisiones/blob/main/Arquitectura%20Cloud.png)
+### **Capa de Host**<br/>
+Se utilizará Amazon S3 para ejecutar el sitio web estático, contiene todos los archivos HTML, CSS Y JS.
+### **Capa de Operabilidad**<br/>
+Se utilizará Amazon API Gateway para poder publicar y mantener las API.<br/>
+Se utilizará Amazon Cognito para toda la autenticación de los usuarios.<br/>
+Se utilizará AWS Lambda para poder ejecutar el código de manera remota, se definen permisos a un rol creado, este rol lo utilizará lambda para ejecutar las funciones.
+### **Capa de Data**<br/>
+Se utilizará Amazon RDS como base de datos para la arquitectura cloud.
+
+### **Buenas prácticas**<br/>
+**Principio de mínimo privilegio** > Se utiliza al hacer la base de datos privada, se crean reglas en el Security Group de la base de datos, haciendo que sólo pueda ser accedida mediante lambda, esto límite el acceso a los recursos, permitiendo a las partes acceder sólo a la información necesaria para su correcto funcionamiento.
+Ejemplo:
+![](https://github.com/Halan07/Caso-3-Obtenci-n-Horas-M-dicas-y-Control-de-Comisiones/blob/main/Security%20Group.png)
+**Seguridad a nivel de cuenta MFA** > Proteger la cuenta utilizada de AWS con Autenticación Multifactor, agregando una capa de seguridad.
